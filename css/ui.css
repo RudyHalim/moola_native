@@ -1,0 +1,25 @@
+table { 
+    border-spacing: 10px;
+    border-collapse: separate;
+}
+.footer {
+	font-size: 11px;
+}
+
+#frmLogin {
+	margin-top:15%;
+	margin-left:32%;
+}
+
+#frmLogin input  {
+	padding: 10px;
+	border-radius: 3px;
+}
+
+#frmLogin input:not([type="submit"])  {
+	width: 350px;
+}
+#notif p {
+	background-color: yellow;
+	padding:10px;
+}
