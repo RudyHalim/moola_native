@@ -1,8 +1,8 @@
 <form id="frmLogin" method="POST">
 	<table>
 		<tr>
-			<th>Username</th>
-			<td>: <input type="text" name="username" /></td>
+			<th>Email</th>
+			<td>: <input type="text" name="email" /></td>
 		</tr>
 		<tr>
 			<th>Password</th>

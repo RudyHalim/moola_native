@@ -1,5 +1,5 @@
 <?php
-function checkLogin($username, $password) {
+function checkLogin($email, $password) {
 	return false;
 }
 ?>

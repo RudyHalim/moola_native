@@ -1,8 +1,8 @@
 <?php
 // form actions
 if(isset($_POST['frmLogin'])) {
-    if(checkLogin($_POST['username'], $_POST['password'])) {
-        $_SESSION['flashmsg'] = "login success";
+    if(checkLogin($_POST['email'], $_POST['password'])) {
+        $_SESSION['flash_msg'] = "login success";
         header("Location: /dashboard");
         die;
     } else {
