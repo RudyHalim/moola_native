@@ -13,8 +13,12 @@
 <div id="notif">
     <?php
         if(isset($_SESSION['flash_msg'])) {
-            echo '<p>'.$_SESSION['flash_msg'].'</p>';
-            unset($_SESSION['flash_msg']);
+            if(sizeof($_SESSION['flash_msg']) > 0) {
+                foreach ($_SESSION['flash_msg'] as $key => $value) {
+                    echo '<p>'.$value.'</p>';
+                }
+                unset($_SESSION['flash_msg']);
+            }
         }
     ?>
 </div>

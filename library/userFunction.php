@@ -20,13 +20,14 @@ function getUserIdByLogin($email, $password) {
 }
 
 function getUserDataByUserId($user_id) {
-    global $mysqli;
+    $query = new Query;
+    $query->select = 'users';
+    $query->condition->user_id = $user_id;
+    $query->limit= 1;
+    
+    $result = $query->execute();
+    if($result)
+        return $result;
 
-    $sql="SELECT * FROM users WHERE user_id = '".$user_id."' LIMIT 1";
-
-    if($result = $mysqli->query($sql)) {
-        $obj = $result->fetch_object();
-        return $obj;
-    }
     return 0;
 }

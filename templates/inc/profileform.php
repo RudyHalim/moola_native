@@ -2,7 +2,7 @@
     <table>
         <tr>
             <th>Email</th>
-            <td>: <input type="text" name="email_addr" value="<?=$userData->email_addr?>" /></td>
+            <td>: <input type="text" name="email_addr" value="<?=$userData[0]['email_addr']?>" /></td>
         </tr>
         <tr>
             <th>Old Password</th>
@@ -18,11 +18,11 @@
         </tr>
         <tr>
             <th>First Name</th>
-            <td>: <input type="text" name="first_name" value="<?=$userData->first_name?>" /></td>
+            <td>: <input type="text" name="first_name" value="<?=$userData[0]['first_name']?>" /></td>
         </tr>
         <tr>
             <th>Last Name</th>
-            <td>: <input type="text" name="last_name" value="<?=$userData->last_name?>" /></td>
+            <td>: <input type="text" name="last_name" value="<?=$userData[0]['last_name']?>" /></td>
         </tr>
         <tr>
             <td></td>

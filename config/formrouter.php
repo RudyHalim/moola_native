@@ -6,19 +6,39 @@ if(isset($_POST['frmLogin'])) {
 
     if( $login_user_id > 0) {
         
-        $_SESSION['flash_msg'] = "Login Success";
+        flashMsg("Login Success");
+
         $_SESSION['user_id'] = $login_user_id;
         
         header("Location: ".$config['application']['baseUri']."dashboard");
         die;
     } else {
-        $_SESSION['flash_msg'] = "Invalid Login";
+        flashMsg("Invalid Login");
     }
 }
 
 if(isset($_POST['frmProfile'])) {
     
     if(isset($_SESSION['user_id'])) {
+
+        if(isset($_POST['password']) && !empty($_POST['password']) && isset($_POST['newpassword']) && isset($_POST['newpassword1'])) {
+            if($_POST['newpassword'] == $_POST['newpassword1']) {
+                $query = new Query();
+                $query->update = 'users';
+                $query->data->passwd = md5($_POST['newpassword']);
+                $query->condition->user_id  = $_SESSION['user_id'];
+                $query->condition->passwd = md5($_POST['password']);
+                $query->execute();
+
+                if(mysqli_affected_rows($mysqli) > 0) {
+                    flashMsg("Your new password has been updated.");
+                } else {
+                    flashMsg("Old Password do not match");
+                }
+            } else {
+                flashMsg("New Password do not match");
+            }
+        }
 
         $query = new Query();
         $query->update = 'users';
@@ -28,7 +48,7 @@ if(isset($_POST['frmProfile'])) {
         $query->condition->user_id  = $_SESSION['user_id'];
         $query->execute();
 
-        $_SESSION['flash_msg'] = $query->flash_msg;
+        flashMsg($query->flash_msg);
 
     } else {
         header("Location: ".$config['application']['baseUri']);
