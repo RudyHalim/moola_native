@@ -11,10 +11,10 @@
 </head>
 <body>
 <div id="notif">
-	<?php
-		if(isset($_SESSION['flash_msg'])) {
-			echo '<p>'.$_SESSION['flash_msg'].'</p>';
-			unset($_SESSION['flash_msg']);
-		}
-	?>
+    <?php
+        if(isset($_SESSION['flash_msg'])) {
+            echo '<p>'.$_SESSION['flash_msg'].'</p>';
+            unset($_SESSION['flash_msg']);
+        }
+    ?>
 </div>

@@ -20,8 +20,6 @@ if(isset($config['url']['module'])) {
     } else {
         echo "404";
     }
-	include($config['application']['includesDir']."footer.php");
+    include($config['application']['includesDir']."footer.php");
 
 }
-
-?>

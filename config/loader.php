@@ -24,7 +24,6 @@ $config['url'] = breakUrlFormat($_GET['_url']);
 
 // first landing page is login page
 if(!$config['url']['module']) {
-	header("Location: /login");
-	exit;
+    header("Location: /login");
+    exit;
 }
-?>
