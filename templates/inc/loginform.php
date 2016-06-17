@@ -2,11 +2,11 @@
 	<table>
 		<tr>
 			<th>Email</th>
-			<td>: <input type="text" name="email" /></td>
+			<td>: <input type="text" name="email" value="rudyhalim.microsoft@gmail.com" /></td>
 		</tr>
 		<tr>
 			<th>Password</th>
-			<td>: <input type="password" name="password" /></td>
+			<td>: <input type="password" name="password" value="1234" /></td>
 		</tr>
 		<tr>
 			<td></td>

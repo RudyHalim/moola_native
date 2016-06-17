@@ -1,5 +1,5 @@
 <?php
-$mysqli = new mysqli(MYSQL_SERVER, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DB);
+$mysqli = new mysqli($config['database']['host'], $config['database']['username'], $config['database']['password'], $config['database']['dbname']);
 
 /* check connection */
 if (mysqli_connect_errno()) {

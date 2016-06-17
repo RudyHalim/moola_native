@@ -1,6 +1,12 @@
+body {
+    font-family: Arial;
+}
 table { 
     border-spacing: 10px;
     border-collapse: separate;
+}
+th {
+    text-align: right;
 }
 .footer {
 	font-size: 11px;
@@ -11,12 +17,13 @@ table {
 	margin-left:32%;
 }
 
-#frmLogin input  {
+input  {
 	padding: 10px;
 	border-radius: 3px;
+    font-size: 12px;
 }
 
-#frmLogin input:not([type="submit"])  {
+input:not([type="submit"])  {
 	width: 350px;
 }
 #notif p {

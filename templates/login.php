@@ -1,3 +1,3 @@
 <?php
-include(INCLUDES_PATH."loginform.php");   
+include($config['application']['includesDir']."loginform.php");
 ?>

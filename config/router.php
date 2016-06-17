@@ -1,17 +1,8 @@
 <?php
-// form actions
-if(isset($_POST['frmLogin'])) {
-    if(getUserIdByLogin($_POST['email'], $_POST['password']) > 0) {
-        $_SESSION['flash_msg'] = "login success";
-        header("Location: /dashboard");
-        die;
-    } else {
-        $_SESSION['flash_msg'] = "login failed";
-    }
-}
+// form redirects before load any module
+include($config['application']['configDir']."formrouter.php");
 
-
-// router
+// router to load module
 if(isset($config['url']['module'])) {
 
     if($config['url']['module'] == "logout") {
@@ -21,15 +12,15 @@ if(isset($config['url']['module'])) {
     }
 
     // include the view file if any
-    $file_to_check = TEMPLATES_PATH.$config['url']['module'].".php";
+    $file_to_check = $config['application']['templatesDir'].$config['url']['module'].".php";
 
-    include(INCLUDES_PATH."header.php");
+    include($config['application']['includesDir']."header.php");
     if(file_exists($file_to_check)) {
         require_once($file_to_check);
     } else {
         echo "404";
     }
-	include(INCLUDES_PATH."footer.php");
+	include($config['application']['includesDir']."footer.php");
 
 }
 

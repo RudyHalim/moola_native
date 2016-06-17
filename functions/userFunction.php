@@ -2,7 +2,7 @@
 function getUserIdByLogin($email, $password) {
 	global $mysqli;
 
-	$sql="SELECT user_id FROM users WHERE email_addr = '".$email."' AND passwd = MD5('".$password."') AND is_active = 'Y' ";
+	$sql="SELECT user_id FROM users WHERE email_addr = '".$email."' AND passwd = MD5('".$password."') AND is_active = 'Y' LIMIT 1";
 	
 	if($result = $mysqli->query($sql)) {
 		$obj = $result->fetch_object();
@@ -13,16 +13,15 @@ function getUserIdByLogin($email, $password) {
 	return 0;
 }
 
-function checkLogin1($email, $password) {
+function getUserDataByUserId($user_id) {
 	global $mysqli;
 
-	$sql="SELECT user_id FROM users WHERE email_addr = '".$email."' AND passwd = MD5('".$password."') ";
+	$sql="SELECT * FROM users WHERE user_id = '".$user_id."' LIMIT 1";
 	
 	if($result = $mysqli->query($sql)) {
-		while ($obj = $result->fetch_object()) {
-			echo $obj->user_id;
-		}
+		$obj = $result->fetch_object();
+		return $obj;
 	}
-	return false;
+	return 0;
 }
 ?>
