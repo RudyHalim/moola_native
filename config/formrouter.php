@@ -45,6 +45,12 @@ if(isset($_POST['frmProfile'])) {
         $query->data->email_addr    = $_POST['email_addr'];
         $query->data->first_name    = $_POST['first_name'];
         $query->data->last_name     = $_POST['last_name'];
+        $query->data->is_active     = $_POST['is_active'];
+        $query->data->gender        = $_POST['gender'];
+        $query->data->phone_no      = $_POST['phone_no'];
+        $query->data->display_image = $_POST['display_image'];
+        $query->data->country_id    = $_POST['country_id'];
+        $query->data->role_id       = $_POST['role_id'];
         $query->condition->user_id  = $_SESSION['user_id'];
         $query->execute();
 

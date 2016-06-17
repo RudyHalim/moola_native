@@ -5,6 +5,7 @@ class Query {
 	public $fields;
 	public $data;
 	public $condition;
+	public $orderby;
 	public $limit;
 	public $select;
 	public $insert;
@@ -77,6 +78,11 @@ class Query {
 			foreach ($this->condition as $column => $value) {
 				$sql .= " AND ".$column." = '".$value."'";
 			}
+		}
+
+		// order by
+		if(!empty($this->orderby)) {
+			$sql .= " ORDER BY ".$this->orderby;
 		}
 
 		// limit

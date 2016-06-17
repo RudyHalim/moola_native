@@ -8,6 +8,9 @@ table {
 th {
     text-align: right;
 }
+td {
+    text-align: left;
+}
 .footer {
 	font-size: 11px;
 }
@@ -17,13 +20,13 @@ th {
 	margin-left:32%;
 }
 
-input  {
-	padding: 10px;
+input, select  {
+	padding: 8px;
 	border-radius: 3px;
     font-size: 12px;
 }
 
-input:not([type="submit"])  {
+input[type="text"], input[type="password"]  {
 	width: 350px;
 }
 #notif p {
