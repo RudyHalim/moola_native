@@ -1,4 +1,4 @@
-<form id="frmProfile" method="POST">
+<form id="frmProfile" method="POST" enctype="multipart/form-data">
     <table>
         <tr>
             <th>Is Active</th>
@@ -38,7 +38,15 @@
         </tr>
         <tr>
             <th>Display Image</th>
-            <td>: <input type="file" name="display_image" value="<?=$data[0]['display_image']?>" /></td>
+            <td>:
+                <?php
+                if(!empty($data[0]['display_image']) && file_exists($data[0]['display_image'])) {
+                    ?>
+                    <img src="<?=$data[0]['display_image']?>" /><br />
+                    <?php
+                }
+                ?> 
+                <input type="file" name="display_image" value="<?=$data[0]['display_image']?>" /></td>
         </tr>
         <tr>
             <th>Country</th>

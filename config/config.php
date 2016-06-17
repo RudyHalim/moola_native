@@ -12,6 +12,8 @@ $config = array(
         'configDir'         => APP_PATH.'/config/',
         'templatesDir'      => APP_PATH.'/templates/',
         'includesDir'       => APP_PATH.'/templates/inc/',
-        'baseUri'           => "/"
+        'uploadDir'         => 'images/uploads/',
+        'displayImageDir'   => 'images/uploads/display_image/',
+        'baseUri'           => '/'
     )
 );

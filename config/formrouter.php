@@ -42,13 +42,36 @@ if(isset($_POST['frmProfile'])) {
 
         $query = new Query();
         $query->update = 'users';
+
+        if(isset($_FILES['display_image']) && $_FILES['display_image']['size'] > 0) {
+            $imagePath = uploadDisplayImage($_FILES["display_image"]);
+            if(!empty($imagePath)) {
+
+                // delete old image
+                $picquery = new Query;
+                $picquery->select = "users";
+                $picquery->fields = "display_image";
+                $picquery->condition->user_id = $_SESSION['user_id'];
+
+                $picresult = $picquery->execute();
+                if($picresult) {
+                    $oldimage = $picresult[0]['display_image'];
+                    if(file_exists($oldimage)) {
+                        unlink($oldimage);
+                    }
+                }
+
+                // update the data with new image
+                $query->data->display_image = $imagePath;
+            }
+        }
+
         $query->data->email_addr    = $_POST['email_addr'];
         $query->data->first_name    = $_POST['first_name'];
         $query->data->last_name     = $_POST['last_name'];
         $query->data->is_active     = $_POST['is_active'];
         $query->data->gender        = $_POST['gender'];
         $query->data->phone_no      = $_POST['phone_no'];
-        $query->data->display_image = $_POST['display_image'];
         $query->data->country_id    = $_POST['country_id'];
         $query->data->role_id       = $_POST['role_id'];
         $query->condition->user_id  = $_SESSION['user_id'];

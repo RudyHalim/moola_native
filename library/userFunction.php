@@ -84,3 +84,47 @@ function generateCbRole($selected) {
 
     return generateSelectOptions($array, $selected);
 }
+
+function uploadDisplayImage($file) {
+    global $config;
+
+    $prefix_file    = date("Y-m-d_H:i:s")."_".sha1(microtime(true).mt_rand(10000,90000))."_";
+    $target_file    = $config['application']['displayImageDir'].$prefix_file.basename($file["name"]);
+    $imageFileType  = pathinfo($target_file,PATHINFO_EXTENSION);
+
+    // Check if image file is a actual image or fake image
+    $check = getimagesize($file["tmp_name"]);
+    if($check !== false) {
+        // flashMsg("File is an image - " . $check["mime"] . ".");
+        $uploadOk = 1;
+    } else {
+        // flashMsg("File is not an image.");
+        $uploadOk = 0;
+    }
+
+    if ($file["size"] > 500000) {
+        flashMsg("Sorry, your file is too large.");
+        $uploadOk = 0;
+    }
+
+    // Allow certain file formats
+    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+    && $imageFileType != "gif" ) {
+        flashMsg("Sorry, only JPG, JPEG, PNG & GIF files are allowed.");
+        $uploadOk = 0;
+    }
+
+    // Check if $uploadOk is set to 0 by an error
+    if ($uploadOk == 0) {
+        flashMsg("Sorry, your file was not uploaded.");
+    // if everything is ok, try to upload file
+    } else {
+        if (move_uploaded_file($file["tmp_name"], $target_file)) {
+            flashMsg("The file ". basename( $file["name"]). " has been uploaded.");
+            return $target_file;
+        } else {
+            flashMsg("Sorry, there was an error uploading your file.");
+        }
+    }
+    return "";
+}
