@@ -1,7 +1,7 @@
 <?php
 // form actions
 if(isset($_POST['frmLogin'])) {
-    if(checkLogin($_POST['email'], $_POST['password'])) {
+    if(getUserIdByLogin($_POST['email'], $_POST['password']) > 0) {
         $_SESSION['flash_msg'] = "login success";
         header("Location: /dashboard");
         die;
@@ -13,6 +13,12 @@ if(isset($_POST['frmLogin'])) {
 
 // router
 if(isset($config['url']['module'])) {
+
+    if($config['url']['module'] == "logout") {
+        unset($_SESSION);
+        header("Location: /");
+        die;
+    }
 
     // include the view file if any
     $file_to_check = TEMPLATES_PATH.$config['url']['module'].".php";
