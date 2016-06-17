@@ -1,6 +1,4 @@
 <?php
-error_reporting(E_ALL);
-
 defined('APP_PATH')         || define('APP_PATH', realpath('.'));
 
 $config = array(

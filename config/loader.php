@@ -14,8 +14,8 @@ session_start();
 $_GET   = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
 $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-// include all functions inside the folder
-foreach (glob("functions/*.php") as $filename) {
+// include all libraries inside the folder
+foreach (glob("library/*.php") as $filename) {
     require_once($filename) ;
 }
 
