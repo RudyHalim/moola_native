@@ -76,7 +76,10 @@ class Query {
 		if(!empty($this->condition)) {
 			$sql .= " WHERE 1=1";
 			foreach ($this->condition as $column => $value) {
-				$sql .= " AND ".$column." = '".$value."'";
+				if(strpos($value, '%') !== false)
+					$sql .= " AND ".$column." LIKE '".$value."'";
+				else
+					$sql .= " AND ".$column." = '".$value."'";
 			}
 		}
 

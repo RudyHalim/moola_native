@@ -29,6 +29,15 @@ input, select  {
 input[type="text"], input[type="password"]  {
 	width: 350px;
 }
+
+input.txtFilter {
+    width: 100%;
+}
+
+.center {
+    text-align: center;
+}
+
 #notif p {
 	background-color: yellow;
 	padding:10px;
