@@ -1,7 +1,7 @@
 <?php
 include($config['application']['includesDir']."menus.php");
 
-echo "<h1>".ucwords($crud_table_name)."</h1>";
+echo "<h1>".ucwords(str_replace("_", " ", $crud_table_name))."</h1>";
 
 if(isset($config['url']['action'])) {
 

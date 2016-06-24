@@ -25,6 +25,11 @@ class Model {
 		$this->table->configs->name = "configs";
 		$this->table->configs->primary = "config_id";
 		$this->table->configs->unique = [];
+
+		$this->table->order_status = new StdClass;
+		$this->table->order_status->name = "order_status";
+		$this->table->order_status->primary = "orderstatus_id";
+		$this->table->order_status->unique = [];
 	}
 
 }
