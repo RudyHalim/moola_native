@@ -27,3 +27,9 @@ if(!$config['url']['module']) {
     header("Location: /login");
     exit;
 }
+
+// load the model
+$model = new Model;
+$crud_table_name 		= $model->table->$config['url']['module']->name;
+$crud_primary_key 		= $model->table->$config['url']['module']->primary;
+$crud_unique_fields 	= $model->table->$config['url']['module']->unique;

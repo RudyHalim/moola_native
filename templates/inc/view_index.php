@@ -32,8 +32,8 @@ if(sizeof($data) > 0) {
                 foreach ($array_data as $key => $value) {
                     echo "<td class='center'>".$value."</td>";
                 }
-                echo "<td class='center'><a href='".$config['url']['module']."/edit/".current($array_data)."'>Edit</a></td>";
-                echo "<td class='center'><a href='".$config['url']['module']."/delete/".current($array_data)."' onclick='return confirm(\"Are you sure want to delete this data?\");'>Delete</a></td>";
+                echo "<td class='center'><a href='/".$config['url']['module']."/edit/".current($array_data)."'>Edit</a></td>";
+                echo "<td class='center'><a href='/".$config['url']['module']."/delete/".current($array_data)."' onclick='return confirm(\"Are you sure want to delete this data?\");'>Delete</a></td>";
             echo "</tr>";
         }
 

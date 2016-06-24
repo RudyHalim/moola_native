@@ -86,25 +86,54 @@ if(isset($_POST['frmProfile'])) {
 
 }
 
+
 if(isset($_POST['frmAdd'])) {
-    $q = new Query;
-    $q->insert = 'countries';
-    $q->data->country_name      = $_POST['country_name'];
-    $q->data->country_currency  = $_POST['country_currency'];
-    $q->data->country_trade     = $_POST['country_trade'];
-    $q->data->markup_value      = $_POST['markup_value'];
-    $q->execute();
-    flashMsg($q->flash_msg);
+    // check existance
+    $proceed = true;
+
+    if(sizeof($crud_unique_fields) > 0) {
+        $check = new Query;
+        $check->select = $crud_table_name;
+        foreach ($crud_unique_fields as $key => $value) {
+            $check->condition->$value = $_POST[$value];
+        }
+        $check_result = $check->execute();
+        $proceed = sizeof($check_result) == 0 ? true : false;
+    }
+
+    if($proceed) {
+        $q = new Query;
+        $q->insert = $crud_table_name;
+
+        unset($_POST['frmAdd']);
+        foreach ($_POST as $key => $value) {
+            $q->data->$key      = $value;
+        }
+
+        $q->execute();
+        flashMsg($q->flash_msg);
+
+    } else {
+        flashMsg("Record already exists.");
+    }
     unset($_POST);
 }
 
 if(isset($_POST['frmEdit'])) {
+
     $q = new Query;
-    $q->update = 'countries';
-    $q->data->country_name      = $_POST['country_name'];
-    $q->data->country_currency  = $_POST['country_currency'];
-    $q->data->country_trade     = $_POST['country_trade'];
-    $q->data->markup_value      = $_POST['markup_value'];
+    $q->update = $crud_table_name;
+
+    if(isset($_POST[$crud_primary_key])) {
+        $q->condition->$crud_primary_key   = $_POST[$crud_primary_key];
+        unset($_POST[$crud_primary_key]);
+    }
+
+    unset($_POST['frmEdit']);
+    foreach ($_POST as $key => $value) {
+        $q->data->$key = $value;
+    }
+
     $q->execute();
     flashMsg($q->flash_msg);
     unset($_POST);

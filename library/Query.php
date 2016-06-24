@@ -103,7 +103,7 @@ class Query {
 
 	public function getColumns($tablename) {
 
-		$sql = "SELECT `COLUMN_NAME`, `COLUMN_TYPE`
+		$sql = "SELECT `COLUMN_NAME`, `COLUMN_TYPE`, `COLUMN_KEY`
 				FROM `INFORMATION_SCHEMA`.`COLUMNS` 
 				WHERE `TABLE_SCHEMA`='".$this->config['database']['dbname']."' 
 				    AND `TABLE_NAME`='".$tablename."'
