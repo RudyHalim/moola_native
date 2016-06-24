@@ -20,7 +20,7 @@ foreach (glob("library/*.php") as $filename) {
 }
 
 // get the url module action and parameter
-$config['url'] = breakUrlFormat($_GET['_url']);
+$config['url'] = breakUrlFormat($_GET);
 
 // first landing page is login page
 if(!$config['url']['module']) {

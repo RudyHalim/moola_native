@@ -12,6 +12,7 @@ class Query {
 	public $insert;
 	public $update;
 	public $delete;
+	public $result;
 
 	public $flash_msg;
 
@@ -30,6 +31,7 @@ class Query {
 	public function execute() {
 		$sql = $this->getQuery();
 		$result = mysqli_query($this->mysqli, $sql);
+		$this->result = $result;
 
 		if($result) {
 			$this->flash_msg = "Your query has been successfully executed.";
@@ -92,7 +94,7 @@ class Query {
 		}
 
 		// limit
-		if($this->limit > 0) {
+		if($this->limit) {
 			$sql .= " LIMIT ".$this->limit;
 		}
 
@@ -116,5 +118,9 @@ class Query {
 			return $return;
 		}
 		return 0;
+	}
+
+	public function getTotalRows() {
+		return $this->result->num_rows;
 	}
 }

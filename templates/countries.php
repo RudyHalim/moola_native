@@ -37,32 +37,64 @@ if(isset($config['url']['action'])) {
 			flashMsg("The data has been successfully deleted.");
 		else 
 			flashMsg("Cannot delete the data.");
-		
+
 		header("Location: /".$config['url']['module']);
 		die();
 
 	} else if($config['url']['action'] == "search") {
 
+		$pagination = new Pagination;
 		$query = new Query;
 		$query->select = "countries";
 
+		// search need this filter coming along
 		if(isset($_POST['frmFilter'])) {
 			unset($_POST['frmFilter']);
-			foreach ($_POST as $key => $value) {
+			$_SESSION['filterCond'] = $_POST;
+		}
+
+		if(isset($_SESSION['filterCond'])) {
+			foreach ($_SESSION['filterCond'] as $key => $value) {
 				if(!empty($value)) {
 					$query->condition->$key = '%'.$value.'%';
 				}
 			}
 		}
 
+		// -------------------------------------------------
+		// pagination script
+		$query->execute();	// must execute to get total rows
+		if(isset($config['url']['querystring']['page'])) {
+			$pagination->page = $config['url']['querystring']['page'];
+		}
+		$pagination->totalRows = $query->getTotalRows();
+		$pagination->calculate();
+		$query->limit = $pagination->generateLimitQuery();
+		// end of pagination script
+		// -------------------------------------------------
+
 		$data = $query->execute();
 		include($config['application']['includesDir']."view_index.php");
 
 	} else {
 
-		// index
+		unset($_SESSION['filterCond']);
+
+		$pagination = new Pagination;
 		$query = new Query;
 		$query->select = "countries";
+
+		// -------------------------------------------------
+		// pagination script
+		$query->execute();	// must execute to get total rows
+		if(isset($config['url']['querystring']['page'])) {
+			$pagination->page = $config['url']['querystring']['page'];
+		}
+		$pagination->totalRows = $query->getTotalRows();
+		$pagination->calculate();
+		$query->limit = $pagination->generateLimitQuery();
+		// end of pagination script
+		// -------------------------------------------------
 
 		$data = $query->execute();
 		include($config['application']['includesDir']."view_index.php");

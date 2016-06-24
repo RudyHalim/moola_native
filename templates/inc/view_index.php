@@ -10,11 +10,13 @@ if(sizeof($data) > 0) {
         reset($data);
     }
 
+    echo "Total Found ".$pagination->totalRows." record(s)";
+
     echo "<form method='POST' action='/".$config['url']['module']."/search'>";
     echo "<table>";
         echo "<tr>";
             foreach ($data[0] as $column_name => $array_data) {  // generate filter textbox
-                $default_value = isset($_POST[$column_name]) ? $_POST[$column_name] : "";
+                $default_value = isset($_SESSION['filterCond'][$column_name]) ? $_SESSION['filterCond'][$column_name] : "";
                 echo "<td><input type='text' class='txtfilter' name='".$column_name."' value='".$default_value."' /></td>";
             }
             echo "<td colspan='2'><input type='submit' name='frmFilter' value='search'></td>";
@@ -34,6 +36,10 @@ if(sizeof($data) > 0) {
                 echo "<td class='center'><a href='".$config['url']['module']."/delete/".current($array_data)."' onclick='return confirm(\"Are you sure want to delete this data?\");'>Delete</a></td>";
             echo "</tr>";
         }
+
+        echo "<tr><td colspan='99' align='center'>";
+        include($config['application']['includesDir']."view_paging.php");
+        echo "</td></tr>";
 
     echo "</table>";
     echo "</form>";
