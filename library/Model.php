@@ -20,6 +20,11 @@ class Model {
 		$this->table->roles->name = "roles";
 		$this->table->roles->primary = "role_id";
 		$this->table->roles->unique = [];
+
+		$this->table->configs = new StdClass;
+		$this->table->configs->name = "configs";
+		$this->table->configs->primary = "config_id";
+		$this->table->configs->unique = [];
 	}
 
 }

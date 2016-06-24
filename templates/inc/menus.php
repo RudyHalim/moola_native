@@ -5,6 +5,7 @@
         
         <li><a href="/countries">Countries</a></li>
         <li><a href="/roles">Roles</a></li>
+        <li><a href="/configs">Config</a></li>
         
         <li><a href="/logout">Logout</a></li>
     </ul>
