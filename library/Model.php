@@ -7,7 +7,7 @@ class Model {
 
 		$this->table = new StdClass;
 		$this->getList();
-		
+
 	}
 
 	public function getList() {
@@ -15,6 +15,11 @@ class Model {
 		$this->table->countries->name = "countries";
 		$this->table->countries->primary = "country_id";
 		$this->table->countries->unique = ["country_name", "country_currency"];
+
+		$this->table->roles = new StdClass;
+		$this->table->roles->name = "roles";
+		$this->table->roles->primary = "role_id";
+		$this->table->roles->unique = [];
 	}
 
 }
