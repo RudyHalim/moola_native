@@ -2,6 +2,7 @@
 class Query {
 
 	private $mysqli;
+	private $config;
 	public $fields;
 	public $data;
 	public $condition;
@@ -16,8 +17,10 @@ class Query {
 
 	public function __construct() {
 		global $mysqli;
+		global $config;
 
 		$this->mysqli 		= $mysqli;
+		$this->config 		= $config;
 		$this->fields 		= "*";
 		$this->data 		= new StdClass;
 		$this->condition 	= new StdClass;
@@ -57,7 +60,7 @@ class Query {
 		} else if(isset($this->update)) {
 			$sql .= "UPDATE ".$this->update;
 		} else if(isset($this->delete)) {
-			$sql .= "DELETE ".$this->delete;
+			$sql .= "DELETE FROM ".$this->delete;
 		}
 
 		// mid
@@ -73,7 +76,7 @@ class Query {
 		}
 
 		// cond
-		if(!empty($this->condition)) {
+		if(count((array)$this->condition) != 0) {
 			$sql .= " WHERE 1=1";
 			foreach ($this->condition as $column => $value) {
 				if(strpos($value, '%') !== false)
@@ -94,5 +97,24 @@ class Query {
 		}
 
 		return $sql;
+	}
+
+	public function getColumns($tablename) {
+
+		$sql = "SELECT `COLUMN_NAME`, `COLUMN_TYPE`
+				FROM `INFORMATION_SCHEMA`.`COLUMNS` 
+				WHERE `TABLE_SCHEMA`='".$this->config['database']['dbname']."' 
+				    AND `TABLE_NAME`='".$tablename."'
+				";
+		$result = mysqli_query($this->mysqli, $sql);
+
+		if($result) {
+			$return = array();
+		    while($obj = $result->fetch_object()) {
+		    	$return[] = (array)$obj;
+			}
+			return $return;
+		}
+		return 0;
 	}
 }

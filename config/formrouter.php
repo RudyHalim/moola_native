@@ -85,3 +85,27 @@ if(isset($_POST['frmProfile'])) {
     }
 
 }
+
+if(isset($_POST['frmAdd'])) {
+    $q = new Query;
+    $q->insert = 'countries';
+    $q->data->country_name      = $_POST['country_name'];
+    $q->data->country_currency  = $_POST['country_currency'];
+    $q->data->country_trade     = $_POST['country_trade'];
+    $q->data->markup_value      = $_POST['markup_value'];
+    $q->execute();
+    flashMsg($q->flash_msg);
+    unset($_POST);
+}
+
+if(isset($_POST['frmEdit'])) {
+    $q = new Query;
+    $q->update = 'countries';
+    $q->data->country_name      = $_POST['country_name'];
+    $q->data->country_currency  = $_POST['country_currency'];
+    $q->data->country_trade     = $_POST['country_trade'];
+    $q->data->markup_value      = $_POST['markup_value'];
+    $q->execute();
+    flashMsg($q->flash_msg);
+    unset($_POST);
+}

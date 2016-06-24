@@ -32,7 +32,7 @@ function getUserDataByUserId($user_id) {
     return 0;
 }
 
-function generateSelectOptions($array, $selected) {
+function generateSelectOptions($array, $selected="") {
     $result = "";
     if(is_array($array) && sizeof($array) > 0) {
         foreach ($array as $key => $value) {

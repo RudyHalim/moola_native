@@ -6,7 +6,11 @@ include($config['application']['configDir']."formrouter.php");
 if(isset($config['url']['module'])) {
 
     if($config['url']['module'] == "logout") {
-        unset($_SESSION);
+        session_destroy();
+        header("Location: /");
+        die;
+    }
+    if(!isset($_SESSION['user_id']) && $config['url']['module'] != "login") {
         header("Location: /");
         die;
     }
