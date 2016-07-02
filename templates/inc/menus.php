@@ -4,6 +4,7 @@
         <li><a href="/profile">Profile</a></li>
 
         <li><a href="/pages">Pages</a></li>
+        <li><a href="/products">Products</a></li>
         <li><a href="/users">Users</a></li>
 
         <li><a href="/order_status">Order Status</a></li>

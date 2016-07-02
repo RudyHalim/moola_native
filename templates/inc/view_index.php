@@ -35,16 +35,28 @@ if(sizeof($data) > 0) {
                         // ********************************
                         // manipulate content table
 
-                        if(strpos($key, "_by") !== false)
+                        if(strpos($key, "_by") !== false){
                             echo getUserNameByUserId($value);
-                        else if(strpos($key, "_dt") !== false)
-                            echo date("d M Y H:i:s", strtotime($value));
-                        else if($key == "country_id")
+                        }
+                        else if(strpos($key, "_dt") !== false) {
+                            if($value != null)
+                                echo date("d M Y H:i:s", strtotime($value));
+                        }
+                        else if($key == "country_id" && $config['url']['module'] != 'countries'){
                             echo getCountryNameById($value);
-                        else if($key == "role_id")
+                        }
+                        else if($key == "role_id" && $config['url']['module'] != 'roles'){
                             echo getRoleNameById($value);
-                        else
+                        }
+                        else if(strpos($key, "currency") !== false && !in_array($key, array('country_currency'))) {
+                            echo getCurrencyNameById($value);
+                        }
+                        else if(in_array($key, array('seller_id', 'buyer_id')) !== false){
+                            echo getUserNameByUserId($value);
+                        }
+                        else{
                             echo $value;
+                        }
 
                         // end of manipulate
                         // ********************************

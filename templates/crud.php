@@ -55,10 +55,16 @@ if(isset($config['url']['action'])) {
 
 					if($key == "country_id") {
 						$query->condition->$key = getListCountryIdSearchByName($value);
+					
 					} else if($key == "role_id") {
 						$query->condition->$key = getListRoleIdSearchByName($value);
-					} else if(in_array($key, array('created_by', 'updated_by'))) {
+					
+					} else if(in_array($key, array('created_by', 'updated_by', 'user_id', 'seller_id', 'buyer_id'))) {
 						$query->condition->$key = implode(", ", getListUserIdSearchByName($value));
+					
+					} else if(strpos($key, "currency") !== false) {
+						$query->condition->$key = implode(", ", getListCurrencyIdSearchByName($value));
+					
 					} else {
 						$query->condition->$key = '%'.$value.'%';
 					}

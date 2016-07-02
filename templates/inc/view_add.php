@@ -27,10 +27,19 @@ echo "<form method='POST' action='/".$config['url']['module']."' enctype='multip
 
                 } else if($array_data['COLUMN_TYPE'] == "text") {
                     echo "<td><textarea name='".$array_data['COLUMN_NAME']."'></textarea></td>";
+                
                 } else if($array_data['COLUMN_NAME'] == "country_id") {
                     echo "<td><select name='".$array_data['COLUMN_NAME']."'>".generateCbCountries()."</select></td>";
+                
                 } else if($array_data['COLUMN_NAME'] == "role_id") {
                     echo "<td><select name='".$array_data['COLUMN_NAME']."'>".generateCbRole()."</select></td>";
+                
+                } else if(in_array($array_data['COLUMN_NAME'], array('seller_id'))) {
+                    echo "<td><select name='".$array_data['COLUMN_NAME']."'>".generateCbUser()."</select></td>";
+                
+                } else if(strpos($array_data['COLUMN_NAME'], "currency") !== false) {
+                    echo "<td><select name='".$array_data['COLUMN_NAME']."'>".generateCbCurrency()."</select></td>";
+                
                 } else if($array_data['COLUMN_NAME'] == "display_image") {
                     echo "<td>";
 

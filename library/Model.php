@@ -46,6 +46,12 @@ class Model {
 		$this->table->users->primary = "user_id";
 		$this->table->users->unique = ["email_addr"];
 		$this->table->users->trackingUpdated = false;
+
+		$this->table->products = new StdClass;
+		$this->table->products->name = "products";
+		$this->table->products->primary = "product_id";
+		$this->table->products->unique = [];
+		$this->table->products->trackingUpdated = true; 	// 'created_dt', 'created_by', 'updated_dt', 'updated_by'
 	}
 
 }

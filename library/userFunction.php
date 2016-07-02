@@ -112,3 +112,19 @@ function getListUserIdSearchByName($user_name) {
 
     return array_column($result, 'user_id');
 }
+
+function generateCbUser($selected="") {
+
+    $array = array();
+    $query = new Query;
+    $query->select = "users";
+    $query->orderby = "user_id";
+
+    $data = $query->execute();
+
+    foreach ($data as $key => $value) {
+        $array[$value['user_id']] = $value['first_name']." ".$value['last_name'];   
+    }
+
+    return generateSelectOptions($array, $selected);
+}
