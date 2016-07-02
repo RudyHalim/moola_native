@@ -28,10 +28,19 @@ if(!$config['url']['module']) {
     exit;
 }
 
+// defined columns' default values only, empty for mysql default value
+$automated_columns = array(
+		'created_dt' => 'NOW()', 
+		'created_by' => $_SESSION['user_id'] ? $_SESSION['user_id'] : 0 , 
+		'updated_dt' => 'NOW()', 
+		'updated_by' => $_SESSION['user_id'] ? $_SESSION['user_id'] : 0 
+	);
+
 // load the model
 $model = new Model;
 if(isset($model->table->$config['url']['module'])) {
 	$crud_table_name 		= $model->table->$config['url']['module']->name;
 	$crud_primary_key 		= $model->table->$config['url']['module']->primary;
 	$crud_unique_fields 	= $model->table->$config['url']['module']->unique;
+	$crud_automated_fields 	= $model->table->$config['url']['module']->trackingUpdated ? $automated_columns : array();
 }

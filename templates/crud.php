@@ -3,6 +3,7 @@ include($config['application']['includesDir']."menus.php");
 
 echo "<h1>".ucwords(str_replace("_", " ", $crud_table_name))."</h1>";
 
+$columns = array();
 if(isset($config['url']['action'])) {
 
 	if($config['url']['action'] == "edit") {
@@ -15,15 +16,11 @@ if(isset($config['url']['action'])) {
 		$query->condition->$crud_primary_key = $config['url']['parameter'];
 		$data = $query->execute();
 
-		include($config['application']['includesDir']."view_edit.php");
-
 	} else if($config['url']['action'] == "add") {
 
 		$query = new Query;
 		$columns = $query->getColumns($crud_table_name);
 		$column_id = array_shift($columns);		// move the ID column to another variable
-		
-		include($config['application']['includesDir']."view_add.php");
 
 	} else if($config['url']['action'] == "delete") {
 
@@ -55,7 +52,17 @@ if(isset($config['url']['action'])) {
 		if(isset($_SESSION['filterCond'])) {
 			foreach ($_SESSION['filterCond'] as $key => $value) {
 				if(!empty($value)) {
-					$query->condition->$key = '%'.$value.'%';
+
+					if($key == "country_id") {
+						$query->condition->$key = getListCountryIdSearchByName($value);
+					} else if($key == "role_id") {
+						$query->condition->$key = getListRoleIdSearchByName($value);
+					} else if(in_array($key, array('created_by', 'updated_by'))) {
+						$query->condition->$key = implode(", ", getListUserIdSearchByName($value));
+					} else {
+						$query->condition->$key = '%'.$value.'%';
+					}
+
 				}
 			}
 		}
@@ -73,7 +80,6 @@ if(isset($config['url']['action'])) {
 		// -------------------------------------------------
 
 		$data = $query->execute();
-		include($config['application']['includesDir']."view_index.php");
 
 	} else {
 
@@ -96,7 +102,6 @@ if(isset($config['url']['action'])) {
 		// -------------------------------------------------
 
 		$data = $query->execute();
-		include($config['application']['includesDir']."view_index.php");
 	}
 
 }

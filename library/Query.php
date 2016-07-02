@@ -71,7 +71,10 @@ class Query {
 
 				$sql .= " SET ";
 				foreach ($this->data as $column => $value) {
-					$sql .= $column." = '".$value."', ";
+					if($value == "NOW()")
+						$sql .= $column." = ".$value.", ";
+					else
+						$sql .= $column." = '".$value."', ";
 				}
 				$sql = rtrim($sql, ", ");
 			}
@@ -81,10 +84,31 @@ class Query {
 		if(count((array)$this->condition) != 0) {
 			$sql .= " WHERE 1=1";
 			foreach ($this->condition as $column => $value) {
-				if(strpos($value, '%') !== false)
-					$sql .= " AND ".$column." LIKE '".$value."'";
-				else
-					$sql .= " AND ".$column." = '".$value."'";
+				
+				$conjunction = " AND ";
+
+				if(is_array($value) && sizeof($value) > 0) {
+					
+					$sql .= $conjunction.$column." IN (".implode(", ", $value).")";
+
+				} else if(is_array($value) && sizeof($value) == 0) {
+					
+					// result is an empty array
+					$sql .= $conjunction.$column." = '0'";
+				
+				} else {
+				
+					if(substr($value, 0, 1) === "~") {
+						$conjunction = " OR ";
+						$value = substr($value, 1);
+					}
+
+					if(strpos($value, '%') !== false)
+						$sql .= $conjunction.$column." LIKE '".$value."'";
+					else
+						$sql .= $conjunction.$column." = '".$value."'";
+				
+				}
 			}
 		}
 

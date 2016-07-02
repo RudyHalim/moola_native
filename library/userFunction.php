@@ -32,6 +32,11 @@ function getUserDataByUserId($user_id) {
     return 0;
 }
 
+function getUserNameByUserId($user_id) {
+    $user_data = getUserDataByUserId($user_id);
+    return $user_data[0]['first_name']." ".$user_data[0]['last_name'];
+}
+
 function generateSelectOptions($array, $selected="") {
     $result = "";
     if(is_array($array) && sizeof($array) > 0) {
@@ -50,38 +55,6 @@ function generateCbYesNo($selected) {
 
 function generateCbGender($selected) {
     $array = array("male" => "Male", "female" => "Female");
-    return generateSelectOptions($array, $selected);
-}
-
-function generateCbCountries($selected) {
-
-    $array = array();
-    $query = new Query;
-    $query->select = "countries";
-    $query->orderby = "country_name";
-
-    $data = $query->execute();
-
-    foreach ($data as $key => $value) {
-        $array[$value['country_id']] = $value['country_name'];   
-    }
-
-    return generateSelectOptions($array, $selected);
-}
-
-function generateCbRole($selected) {
-
-    $array = array();
-    $query = new Query;
-    $query->select = "roles";
-    $query->orderby = "role_id";
-
-    $data = $query->execute();
-
-    foreach ($data as $key => $value) {
-        $array[$value['role_id']] = $value['role_name'];   
-    }
-
     return generateSelectOptions($array, $selected);
 }
 
@@ -127,4 +100,15 @@ function uploadDisplayImage($file) {
         }
     }
     return "";
+}
+
+function getListUserIdSearchByName($user_name) {
+    $query = new Query;
+    $query->select = "users";
+    $query->fields = "user_id";
+    $query->condition->first_name = '%'.$user_name.'%';
+    $query->condition->last_name = '~%'.$user_name.'%';
+    $result = $query->execute();
+
+    return array_column($result, 'user_id');
 }

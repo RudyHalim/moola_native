@@ -23,14 +23,33 @@ if(sizeof($data) > 0) {
         echo "</tr>";
         echo "<tr>";
             foreach ($data[0] as $column_name => $array_data) {  // generate column name
-                echo "<th class='center'>".ucwords(str_replace("_", " ", $column_name))."</th>";
+                echo "<th class='center'>".ucwords(str_replace(" id", "", str_replace("_", " ", $column_name)))."</th>";
             }
         echo "</tr>";
 
         foreach ($data as $row => $array_data) {
             echo "<tr>";
                 foreach ($array_data as $key => $value) {
-                    echo "<td class='center'>".$value."</td>";
+                    echo "<td class='center'>";
+
+                        // ********************************
+                        // manipulate content table
+
+                        if(strpos($key, "_by") !== false)
+                            echo getUserNameByUserId($value);
+                        else if(strpos($key, "_dt") !== false)
+                            echo date("d M Y H:i:s", strtotime($value));
+                        else if($key == "country_id")
+                            echo getCountryNameById($value);
+                        else if($key == "role_id")
+                            echo getRoleNameById($value);
+                        else
+                            echo $value;
+
+                        // end of manipulate
+                        // ********************************
+
+                    echo "</td>";
                 }
                 echo "<td class='center'><a href='/".$config['url']['module']."/edit/".current($array_data)."'>Edit</a></td>";
                 echo "<td class='center'><a href='/".$config['url']['module']."/delete/".current($array_data)."' onclick='return confirm(\"Are you sure want to delete this data?\");'>Delete</a></td>";
@@ -46,6 +65,6 @@ if(sizeof($data) > 0) {
 
 } else {
     ?>
-    <h3>No match data</h3>
+    <h3>No data found</h3>
     <?php
 }

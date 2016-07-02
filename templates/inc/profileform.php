@@ -42,7 +42,7 @@
                 <?php
                 if(!empty($data[0]['display_image']) && file_exists($data[0]['display_image'])) {
                     ?>
-                    <img src="<?=$data[0]['display_image']?>" /><br />
+                    <img src="/<?=$data[0]['display_image']?>" /><br />
                     <?php
                 }
                 ?> 
